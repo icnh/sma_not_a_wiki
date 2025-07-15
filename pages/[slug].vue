@@ -1,19 +1,19 @@
 <script setup lang="ts">
 const { params: { slug } } = useRoute();
+const { data: page } = useFetch<Page>(`/api/pages/${slug}`);
+
+function capitalize(str: any) {
+    return String(str).split('-').map((s) => s[0].toUpperCase() + s.slice(1)).join(' ');
+}
 </script>
 
 <template>
     <article>
-        <h1>This is page <u>{{ slug }}</u>.</h1>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci molestias qui fugit magnam nobis quam
-            eaque, sint quidem, atque saepe rerum placeat iste aut ratione necessitatibus excepturi, nostrum consequatur
-            a!</p>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias at ab debitis officiis perferendis ducimus
-            delectus soluta architecto nesciunt temporibus sed voluptatibus deleniti minima odit in nemo, quaerat vel
-            voluptates?</p>
+        <h1>{{ page?.title ?? capitalize(slug) }}</h1>
+        <pre>{{ page?.content ?? 'There is no such page yet.' }}</pre>
 
         <footer>
-            <a class="btn" href="#">Edit</a>
+            <a class="btn" href="#">{{ page ? 'Edit' : 'Create' }}</a>
         </footer>
     </article>
 </template>
