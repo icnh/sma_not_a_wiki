@@ -4,3 +4,53 @@
     <NuxtPage />
   </div>
 </template>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap');
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-family: "Space Grotesk", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: normal;
+  font-size: 17px;
+  line-height: 24px;
+}
+
+h1 {
+  font-weight: 600;
+  font-size: 32px;
+}
+
+a {
+  color: coral;
+  font-weight: 600;
+}
+
+a.btn {
+  background-color: coral;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  display: inline-block;
+}
+
+a:hover.btn {
+  background-color: color-mix(in srgb, coral 90%, black);
+}
+
+a:active.btn {
+  background-color: color-mix(in srgb, coral 80%, black);
+  padding-top: 7px;
+  padding-bottom: 5px;
+}
+</style>
