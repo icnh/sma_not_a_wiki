@@ -33,7 +33,7 @@ a {
   font-weight: 600;
 }
 
-a.btn {
+.btn {
   background-color: coral;
   color: white;
   padding: 6px 12px;
@@ -42,15 +42,32 @@ a.btn {
   font-weight: 600;
   text-decoration: none;
   display: inline-block;
+  border: none;
+  line-height: 150%;
+  text-align: center;
 }
 
-a:hover.btn {
+.btn.btn-secondary {
+  background-color: transparent;
+  color: coral;
+  border: 1px solid coral;
+}
+
+:hover.btn {
   background-color: color-mix(in srgb, coral 90%, black);
 }
 
-a:active.btn {
+:hover.btn.btn-secondary {
+  background-color: color-mix(in srgb, coral 5%, white);
+}
+
+:active.btn {
   background-color: color-mix(in srgb, coral 80%, black);
   padding-top: 7px;
   padding-bottom: 5px;
+}
+
+:active.btn.btn-secondary {
+  background-color: color-mix(in srgb, coral 15%, white);
 }
 </style>

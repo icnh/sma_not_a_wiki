@@ -13,7 +13,7 @@ function capitalize(str: any) {
         <WikiText :content="page?.content ?? 'There is no such page yet.'" />
 
         <footer>
-            <a class="btn" href="#">{{ page ? 'Edit' : 'Create' }}</a>
+            <NuxtLink class="btn" :to="`/edit/${slug}`">{{ page ? 'Edit' : 'Create' }}</NuxtLink>
         </footer>
     </article>
 </template>
@@ -22,5 +22,6 @@ function capitalize(str: any) {
 article {
     max-width: 60pc;
     margin: 1em auto;
+    padding: 0 1em;
 }
 </style>
