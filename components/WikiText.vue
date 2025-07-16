@@ -92,12 +92,12 @@ const formattedContent = computed(() => {
     }
 
     // Handle blockquotes
-    if (trimmed.startsWith('> ')) {
+    if (trimmed.startsWith('&gt; ')) {
       flushParagraph();
       if (!inBlockquote) {
         inBlockquote = true;
       }
-      blockquoteLines.push(trimmed.substring(2));
+      blockquoteLines.push(trimmed.substring(5));
       continue;
     } else if (inBlockquote) {
       flushBlockquote();
