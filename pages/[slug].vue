@@ -2,14 +2,14 @@
 const { params: { slug } } = useRoute();
 const { data: page } = useFetch<Page>(`/api/pages/${slug}`);
 
-function capitalize(str: any) {
-    return String(str).split('-').map((s) => s[0].toUpperCase() + s.slice(1)).join(' ');
-}
+useHead({
+    title: page.value?.title ?? 'Not a Wiki'
+});
 </script>
 
 <template>
     <article>
-        <h1>{{ page?.title ?? capitalize(slug) }}</h1>
+        <h1>{{ page?.title ?? `/${slug}` }}</h1>
         <WikiText :content="page?.content ?? 'There is no such page yet.'" />
 
         <footer>

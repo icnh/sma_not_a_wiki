@@ -2,6 +2,10 @@
 const { params: { slug } } = useRoute();
 const { data: page } = useFetch<Page>(`/api/pages/${slug}`);
 
+useHead({
+    title: `${page ? 'Edit' : 'Create'}/$slug}`
+});
+
 const title = ref('');
 const content = ref('');
 const saving = ref(false);
@@ -60,7 +64,7 @@ const savePage = async () => {
                         class="content-textarea"></textarea>
                 </div>
             </div>
-            
+
             <div class="preview-panel">
                 <label>Preview</label>
                 <div class="preview-content">
