@@ -11,38 +11,47 @@ const props = defineProps<Props>();
 
 const formattedContent = computed(() => {
   if (!props.content) return '';
-  
-  const lines = props.content.split('\n');
+
+  const lines = props.content
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .split('\n');
   const result: string[] = [];
   let currentParagraph: string[] = [];
   let inCodeBlock = false;
   let codeBlockLines: string[] = [];
   let inBlockquote = false;
   let blockquoteLines: string[] = [];
-  
+
   const processInlineMarkup = (text: string): string => {
     // Wiki links [[title|slug]] and [[slug]]
     text = text.replace(/\[\[([^\]|]+)\|([^\]]+)\]\]/g, '<a href="/$2">$1</a>');
     text = text.replace(/\[\[([^\]]+)\]\]/g, '<a href="/$1">$1</a>');
-    
+
+    // Images ![alt](url)
+    text = text.replace(/!\[([^\]]+)\]\(([^)]+)\)(?:\{(.*?)\})?/g, '<img src="$2" alt="$1" style="$3">');
+
     // Regular links [title](url)
     text = text.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>');
-    
+
     // Bold *text*
+    text = text.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
     text = text.replace(/\*([^*]+)\*/g, '<strong>$1</strong>');
-    
+
     // Italic _text_
+    text = text.replace(/__([^_]+)__/g, '<em>$1</em>');
     text = text.replace(/_([^_]+)_/g, '<em>$1</em>');
-    
+
     // Strikethrough ~text~
     text = text.replace(/~([^~]+)~/g, '<del>$1</del>');
-    
+
     // Inline code `text`
-    text = text.replace(/`([^`]+)`/g, '<code>$1</code>');
-    
+    text = text.replace(/(``+) (.*?) \1|`(.*?)`/g, '<code>$2$3</code>');
+
     return text;
   };
-  
+
   const flushParagraph = () => {
     if (currentParagraph.length > 0) {
       const content = currentParagraph.join(' ');
@@ -50,7 +59,7 @@ const formattedContent = computed(() => {
       currentParagraph = [];
     }
   };
-  
+
   const flushBlockquote = () => {
     if (blockquoteLines.length > 0) {
       const content = blockquoteLines.map(line => processInlineMarkup(line)).join('<br>');
@@ -59,10 +68,10 @@ const formattedContent = computed(() => {
       inBlockquote = false;
     }
   };
-  
+
   for (const line of lines) {
     const trimmed = line.trim();
-    
+
     // Handle code blocks
     if (trimmed.startsWith('```')) {
       if (inCodeBlock) {
@@ -76,12 +85,12 @@ const formattedContent = computed(() => {
       }
       continue;
     }
-    
+
     if (inCodeBlock) {
       codeBlockLines.push(line);
       continue;
     }
-    
+
     // Handle blockquotes
     if (trimmed.startsWith('> ')) {
       flushParagraph();
@@ -93,7 +102,7 @@ const formattedContent = computed(() => {
     } else if (inBlockquote) {
       flushBlockquote();
     }
-    
+
     // Handle headings
     if (trimmed.startsWith('#### ')) {
       flushParagraph();
@@ -112,32 +121,32 @@ const formattedContent = computed(() => {
       result.push(`<h1>${processInlineMarkup(trimmed.substring(2))}</h1>`);
       continue;
     }
-    
+
     // Handle lists
     if (trimmed.startsWith('- ') || trimmed.startsWith('+ ') || trimmed.startsWith('* ')) {
       flushParagraph();
       result.push(`<ul><li>${processInlineMarkup(trimmed.substring(2))}</li></ul>`);
       continue;
     }
-    
+
     // Handle empty lines
     if (trimmed === '') {
       flushParagraph();
       continue;
     }
-    
+
     // Regular paragraph content
     currentParagraph.push(trimmed);
   }
-  
+
   // Flush any remaining content
   flushParagraph();
   flushBlockquote();
-  
+
   // Merge consecutive list items
   let html = result.join('');
   html = html.replace(/<\/ul>\s*<ul>/g, '');
-  
+
   return html;
 });
 </script>
