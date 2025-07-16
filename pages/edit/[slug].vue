@@ -3,7 +3,7 @@ const { params: { slug } } = useRoute();
 const { data: page } = useFetch<Page>(`/api/pages/${slug}`);
 
 useHead({
-    title: `${page ? 'Edit' : 'Create'}/$slug}`
+    title: `${page ? 'Edit' : 'Create'}/${slug}`
 });
 
 const title = ref('');
