@@ -156,24 +156,28 @@ const formattedContent = computed(() => {
   font-size: 32px;
   font-weight: 600;
   margin: 1em 0 0.5em 0;
+  line-height: 36px;
 }
 
 :deep(h2) {
   font-size: 28px;
   font-weight: 600;
   margin: 1em 0 0.5em 0;
+  line-height: 32px;
 }
 
 :deep(h3) {
   font-size: 24px;
   font-weight: 600;
   margin: 1em 0 0.5em 0;
+  line-height: 28px;
 }
 
 :deep(h4) {
   font-size: 20px;
   font-weight: 600;
   margin: 1em 0 0.5em 0;
+  line-height: 24px;
 }
 
 :deep(p) {

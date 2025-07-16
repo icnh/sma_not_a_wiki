@@ -24,8 +24,10 @@ html {
 }
 
 h1 {
-  font-weight: 600;
   font-size: 32px;
+  font-weight: 600;
+  margin: 1em 0 0.5em 0;
+  line-height: 36px;
 }
 
 a {
