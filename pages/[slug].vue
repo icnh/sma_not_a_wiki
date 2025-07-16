@@ -10,7 +10,7 @@ function capitalize(str: any) {
 <template>
     <article>
         <h1>{{ page?.title ?? capitalize(slug) }}</h1>
-        <pre>{{ page?.content ?? 'There is no such page yet.' }}</pre>
+        <WikiText :content="page?.content ?? 'There is no such page yet.'" />
 
         <footer>
             <a class="btn" href="#">{{ page ? 'Edit' : 'Create' }}</a>
