@@ -23,6 +23,7 @@ const formattedContent = computed(() => {
   let codeBlockLines: string[] = [];
   let inBlockquote = false;
   let blockquoteLines: string[] = [];
+  let inSection = false;
 
   const processInlineMarkup = (text: string): string => {
     // Wiki links [[title|slug]] and [[slug]]
@@ -91,6 +92,22 @@ const formattedContent = computed(() => {
       continue;
     }
 
+    // Handle css sections
+    if (trimmed.startsWith(':: ') && trimmed.length > 3) {
+      flushParagraph();
+      if (inSection) {
+        result.push('</section>');
+      }
+      result.push('<section class="box">');
+      inSection = true;
+      continue;
+    } else if (trimmed == '::') {
+      flushParagraph();
+      result.push('</section>');
+      inSection = false;
+      continue;
+    }
+
     // Handle blockquotes
     if (trimmed.startsWith('&gt; ')) {
       flushParagraph();
@@ -143,6 +160,10 @@ const formattedContent = computed(() => {
   flushParagraph();
   flushBlockquote();
 
+  if (inSection) {
+    result.push('</section>');
+  }
+
   // Merge consecutive list items
   let html = result.join('');
   html = html.replace(/<\/ul>\s*<ul>/g, '');
@@ -191,6 +212,21 @@ const formattedContent = computed(() => {
 
 :deep(li) {
   margin: 0.25em 0;
+}
+
+:deep(section) {
+  margin: 1em 0;
+  padding: .75em;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+:deep(section :first-child) {
+  margin-top: 0;
+}
+
+:deep(section :last-child) {
+  margin-bottom: 0;
 }
 
 :deep(blockquote) {
