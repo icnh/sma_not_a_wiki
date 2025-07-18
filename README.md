@@ -1,75 +1,23 @@
-# Nuxt Minimal Starter
+# Not-a-wiki
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+A very simple wiki implementation using Turso as backend.
 
-## Setup
+You must provide a`.env` file with these properties:
 
-Make sure to install dependencies:
-
-```bash
-# npm
-npm install
-
-# pnpm
-pnpm install
-
-# yarn
-yarn install
-
-# bun
-bun install
+```ini
+TURSO_DATABASE_URL=libsql://...
+TURSO_AUTH_TOKEN=ey...
 ```
 
-## Development Server
+## Features
 
-Start the development server on `http://localhost:3000`:
+* Display a single page
+* Edit a single page
 
-```bash
-# npm
-npm run dev
+## Missing
 
-# pnpm
-pnpm dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
-```
-
-## Production
-
-Build the application for production:
-
-```bash
-# npm
-npm run build
-
-# pnpm
-pnpm build
-
-# yarn
-yarn build
-
-# bun
-bun run build
-```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+* Edit protection
+* History
+* Modified date
+* Recent changes
+* Image upload

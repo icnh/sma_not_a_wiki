@@ -15,3 +15,4 @@ export function useDrizzle() {
 }
 
 export type Page = typeof schema.pages.$inferSelect
+export type Passphrase = typeof schema.passphrases.$inferSelect

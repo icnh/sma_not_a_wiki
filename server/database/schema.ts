@@ -5,3 +5,7 @@ export const pages = sqliteTable('pages', {
     title: text('title').notNull(),
     content: text('content').notNull(),
 });
+
+export const passphrases = sqliteTable('passphrases', {
+    passphrase: text('passphrase').primaryKey(),
+});

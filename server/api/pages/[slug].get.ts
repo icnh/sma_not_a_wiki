@@ -1,10 +1,12 @@
+const { pages } = tables;
+
 export default eventHandler(async (event) => {
     const { slug } = getRouterParams(event);
 
     const page = await useDrizzle()
         .select()
-        .from(tables.pages)
-        .where(eq(tables.pages.slug, String(slug)))
+        .from(pages)
+        .where(eq(pages.slug, slug))
         .get();
 
     if (!page) {
