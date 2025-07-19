@@ -71,7 +71,10 @@ const formattedContent = computed(() => {
   };
 
   for (const line of lines) {
-    const trimmed = line.trim();
+    let trimmed = line.trim();
+    if (line.endsWith('  ')) {
+      trimmed += '<br>';
+    }
 
     // Handle code blocks
     if (trimmed.startsWith('```')) {
@@ -149,6 +152,12 @@ const formattedContent = computed(() => {
     // Handle empty lines
     if (trimmed === '') {
       flushParagraph();
+      continue;
+    }
+
+    if (trimmed === '---') {
+      flushParagraph();
+      result.push('<hr>');
       continue;
     }
 
@@ -275,5 +284,10 @@ const formattedContent = computed(() => {
 :deep(a) {
   color: coral;
   font-weight: 600;
+}
+
+:deep(hr) {
+  border: none;
+  border-bottom: 1px solid coral;
 }
 </style>
