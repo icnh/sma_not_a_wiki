@@ -24,4 +24,29 @@ article {
     margin: 1em auto;
     padding: 0 1em;
 }
+
+@media print {
+    .btn {
+        display: none;
+    }
+
+    article {
+        max-width: inherit;
+        margin: 0;
+        padding: 0;
+    }
+
+    h1, h2, h3, h4 {
+        break-after: avoid;
+    }
+
+    @page {
+        margin: 2cm 2cm 3cm 2cm;
+
+        @bottom-center {
+            content: counter(page);
+            font-size: 0.9em;
+        }
+    }
+}
 </style>
